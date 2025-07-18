@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/quizes.css">
+    <link rel="stylesheet" href="styles/quizzes.css">
     <title>Quizes</title>
 </head>
 <body>
     <div id="content">
-        <nav id="quiz-nav">
+        <!-- <nav id="quiz-nav">
             <ul>
                 <li>Animals</li>
                 <li>Colors</li>
@@ -18,7 +18,7 @@
                 <li>Nature</li>
 
             </ul>
-        </nav>
+        </nav> -->
         
         <h1>これはなんですか？</h1>
         <div id="visual-ctn"></div>
@@ -114,7 +114,7 @@
                 
                 // If answered last question
                 if(questionIndex === shuffledQuestions.length - 1) {                    
-                    document.querySelector('#content').innerHTML = '<h1>Quiz Complete</h1><button id="return-btn"><a href="/index.html">Return</a></button>';
+                    document.querySelector('#content').innerHTML = '<h1>Quiz Complete</h1><button id="return-btn"><a href="/index.html" target="_self">Return</a></button>';
                     return;
                 }                
 
