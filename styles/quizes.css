@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#590D8C, #180326);
+    color: #FFF;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+/* Font Awesome Icons */
+i {
+    font-size: 40px;
+    color: #000;
+}
+
+/* Nav Bar */
+#quiz-nav {
+    position: absolute;
+    left: 1em;
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    width: 100px;
+}
+
+#quiz-nav ul {
+    width: 100%;
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+}
+
+#quiz-nav ul li {
+    list-style: none;
+    width: 100%;
+    padding-left: .5em;
+}
+
+#quiz-nav ul li:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
+/* Content */
+#content {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1em;
+}
+
+/* Visual */
+#visual-ctn {
+    width: 50%;
+    height: 250px;
+    font-size: 10em;
+    background-color: salmon;
+    text-align: center;
+    
+}
+
+/* Hints */
+#hints-ctn {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em 0;
+}
+
+#hints-ctn button {
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    color: #000;
+    background-color: #000;
+}
+
+#hints-ctn button.text-reveal {
+    color: #FFF;
+}
+
+/* Answer */
+#answer-ctn {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    position: relative;
+}
+
+#answer-icon, #submit-answer {
+    border: none;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    position: absolute;
+    background-color: transparent;
+}
+
+#answer-icon {
+    left: 0;
+    top: 0;
+}
+
+#submit-answer {
+    right: 0;
+    top: 0;
+}
+
+#submit-answer:hover {
+    cursor: pointer;
+}
+
+#text-box {
+    font-size: 1.5em;
+    padding-left: 100px;
+    width: 100%;
+}
+
+/* Progress Bar */
+#progress-bar {
+    background-color: #000;
+    height: 20px;
+    width: 100%;
+}
+
+@keyframes countdown {
+    from {
+        width: 100%;
+        background-color: green;
+    }
+
+    to {
+        width: 0%;
+        background-color: green;
+    }
+}
+
+#progress-bar.animate {
+    /* duration, name */
+    animation: 1s linear countdown;
+}
+
+#return-btn {
+    width: 100%;
+    font-size: 3em;
+    border-radius: 10px;
+    text-decoration: none;
+}
