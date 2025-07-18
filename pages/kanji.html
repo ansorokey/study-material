@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/kanji.css">
     <title>Kanji Practice</title>
 </head>
 <body>
@@ -60,13 +61,17 @@
             return newArr;
         }
 
-        function setupPage(vocabItem) {
+        function setupPage(vocabItem, option) {
             // Clear textbox, hints, reset kana icon
             document.querySelector('#text-box').value = '';
             hintsCtn.innerHTML = '';            
 
             // Set image/emoji
-            visualCtn.innerText = vocabItem.visual;
+            if(option === 'kanji') {
+                visualCtn.innerText = vocabItem.kanji;
+            } else {
+                visualCtn.innerText = vocabItem.visual;
+            }
 
             // create a button hiding each character of the kana in hiragana
             for(let char of vocabItem.kana) {
@@ -90,8 +95,9 @@
                     const newBtn = document.createElement('button');
                     newBtn.innerText = item.name;
                     newBtn.addEventListener('click', () => {
+                        index = 0;
                         vocab = fisherYatesShuffle(item.group);
-                        setupPage(vocab[index]);
+                        setupPage(vocab[index], 'kanji');
                     })
                     document.querySelector('header').appendChild(newBtn);
                 }
