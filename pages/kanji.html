@@ -6,8 +6,98 @@
     <title>Kanji Practice</title>
 </head>
 <body>
-    <button>Writing</button>
-    <button>Matching</button>
-    <button>Kana</button>
+    <nav>
+        <button id="write-btn">Writing</button>
+        <button id="match-btn">Matching</button>
+        <button id="kana-btn">Kana</button>
+    </nav>
+    
+    <header></header>
+
+    <div id="content">
+        
+        <h1>これはなんですか？</h1>
+        <div id="visual-ctn"></div>
+        <div id="hints-ctn"></div>
+
+        <form id="kana-ctn">
+            <div id="kana-icon">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+            <input type="text" name="" id="text-box">        
+            <button id="submit-kana">
+                <i class="fa-regular fa-circle-right"></i>
+            </button>
+        </form>
+
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Buttons Change Content -->
+    <script type="module">
+        import list from '../data/vocab-builder.js';
+        // Page Elements
+        const writeBtn = document.querySelector('#write-btn');
+        const matchBtn = document.querySelector('#match-btn');
+        const kanaBtn = document.querySelector('#kana-btn');
+        const visualCtn = document.querySelector('#visual-ctn');
+        const hintsCtn = document.querySelector('#hints-ctn');
+        const quizForm = document.querySelector('form');
+
+        let vocab = [];
+        let index = 0;
+
+        // Functions
+        function fisherYatesShuffle(arr) {
+            let newArr = [...arr];
+
+            for(let i = arr.length-1; i >= 0; i--) {
+                let j = Math.floor(Math.random() * (i+1));
+
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+
+            return newArr;
+        }
+
+        function setupPage(vocabItem) {
+            // Clear textbox, hints, reset kana icon
+            document.querySelector('#text-box').value = '';
+            hintsCtn.innerHTML = '';            
+
+            // Set image/emoji
+            visualCtn.innerText = vocabItem.visual;
+
+            // create a button hiding each character of the kana in hiragana
+            for(let char of vocabItem.kana) {
+                const hint = document.createElement('button');
+                hint.innerText = char;
+
+                hint.addEventListener('click', (e) => {                    
+                    // Turn button text white on click
+                    e.target.classList.add('text-reveal');
+                });
+
+                // Add to hints container
+                hintsCtn.appendChild(hint);
+            }
+        }
+
+        // Load all vocab options when clicking a button
+        document.addEventListener("DOMContentLoaded", () => {
+            kanaBtn.addEventListener('click', () => {
+                for(let item of list) {
+                    const newBtn = document.createElement('button');
+                    newBtn.innerText = item.name;
+                    newBtn.addEventListener('click', () => {
+                        vocab = fisherYatesShuffle(item.group);
+                        setupPage(vocab[index]);
+                    })
+                    document.querySelector('header').appendChild(newBtn);
+                }
+            })        
+        })
+    </script>
+    
 </body>
 </html>
