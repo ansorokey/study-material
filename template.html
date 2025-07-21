@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./template.css" type="text/css"/>
+    <title>Template</title>
+</head>
+<body>
+    <nav>
+        <ul id="deck-list"></ul>
+
+        <ul id="activity-list">
+            <li><button>Activity</button></li>
+            <li><button>Activity</button></li>
+            <li><button>Activity</button></li>
+        </ul>
+    </nav>    
+
+    <div id="content">        
+        <h1></h1>
+        <h2 id="selection-title"></h2>
+        <div id="visual-ctn"></div>
+        <div id="hints-ctn"></div>
+
+        <form id="answer-frm">
+            <div id="answer-icon">
+                <i class="fa-regular fa-circle"></i>
+            </div>
+
+            <input type="text" id="text-box">
+
+            <button id="submit-answer">
+                <i class="fa-regular fa-circle-right"></i>
+            </button>
+        </form>
+
+        <div id="progress-bar"></div>
+    </div>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/867dfd702e.js" crossorigin="anonymous"></script>
+    
+    <script type="module">
+        // Imports
+        import allDecks from './data/decks.js'
+        
+        // Page Elements
+        const h1 = document.querySelector('h1');
+        const h2 = document.querySelector('h2');
+        const visualCtn = document.querySelector('#visual-ctn');
+        const hintsCtn = document.querySelector('#hints-ctn');
+        const deckList = document.querySelector('#deck-list');
+        const textBox = document.querySelector('#text-box');
+        const answerFrm = document.querySelector('#answer-frm');
+        const answerIcon = document.querySelector('#answer-icon');
+        const progressBar = document.querySelector('#progress-bar');
+
+        // Variables
+        let shuffledDeck = [];
+        let index = 0;
+
+        // Functions
+        function fisherYatesShuffle(arr) {
+            let newArr = [...arr];
+
+            for(let i = arr.length-1; i >= 0; i--) {
+                let j = Math.floor(Math.random() * (i+1));
+
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+
+            return newArr;
+        }
+        function setupPage(card) {
+            // Clear visual
+            visualCtn.innerText = '';
+
+            // Clear Hints
+            hintsCtn.innerHTML = '';
+
+            // Clear input
+            textBox.value = '';
+
+            // Display Kanji, adjust font size
+            if(card.kana.length >= 4) {
+                visualCtn.style.fontSize = '5em';
+            } else if (card.kana.length > 2) {                
+                visualCtn.style.fontSize = '8em';
+            }
+            visualCtn.innerText = card.kanji;
+
+            // Create hint buttons
+            for(let char of card.kana) {
+                const hint = document.createElement('button');
+                hint.innerText = char;
+
+                // Turn button text white on click
+                hint.addEventListener('click', (e) => {                    
+                    e.target.classList.add('text-reveal');
+                });
+
+                // Add to hints container
+                hintsCtn.appendChild(hint);
+            }
+        }
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            if(textBox.value === shuffledDeck[index].kana) {
+                answerIcon.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+                progressBar.classList.add('animate'); 
+                
+                // If answered last question
+                if(index === shuffledDeck.length - 1) {                    
+                    document.querySelector('#content').innerHTML = '<h1>Quiz Complete</h1><button id="return-btn"><a href="/index.html" target="_self">Return</a></button>';
+                    return;
+                }                
+
+                // Setup next page after 1 second
+                const setupTimer = setTimeout(() => {
+                    answerIcon.innerHTML = '<i class="fa-regular fa-circle"></i>';
+                    index += 1;                    
+                    setupPage(shuffledDeck[index]);
+                    clearTimeout(setupTimer)
+                    progressBar.classList.remove('animate');
+                }, 1000);
+            } else {
+                answerIcon.innerHTML = '<i class="fa-regular fa-circle-xmark"></i>';
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            h1.innerText = 'Time to practice!';
+            h2.innerText = 'がんばってください！！！';
+            allDecks.forEach(d => {
+                const deckBtn = document.createElement('button');
+                deckBtn.innerText = d.name;
+                deckBtn.addEventListener('click', () => {
+                    // TO DO: shuffle and set deck on button click
+                    shuffledDeck = fisherYatesShuffle(d.deck);
+                    setupPage(shuffledDeck[index]);
+                })
+                deckList.appendChild(deckBtn);
+            });            
+        })
+        answerFrm.addEventListener('submit', handleSubmit)
+    </script>
+</body>
+</html>

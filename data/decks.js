@@ -127,14 +127,58 @@ const groupB = [
     },
 ]
 
+const animals = [
+    {
+        visual: '🐈',
+        visualType: 'emoji',
+        meaning: 'Cat',
+        kana: 'ねこ',
+        kanji: ''
+    },{
+        visual: '🐕',
+        visualType: 'emoji',
+        meaning: 'Dog',
+        kana: 'いぬ',
+        kanji: ''
+    },{
+        visual: '🐘',
+        visualType: 'emoji',
+        meaning: 'Elephant',
+        kana: 'ぞう',
+        kanji: ''
+    },{
+        visual: '🐜',
+        visualType: 'emoji',
+        meaning: 'Ant',
+        kana: 'あり',
+        kanji: ''
+    },{
+        visual: '🦟',
+        visualType: 'emoji',
+        meaning: 'Mosquito',
+        kana: 'か',
+        kanji: ''
+    },{
+        visual: '🐵',
+        visualType: 'emoji',
+        meaning: 'Monkey',
+        kana: 'さる',
+        kanji: ''
+    },
+    
+]
+
 const list = [
     {
-        'group': groupA,
+        'deck': groupA,
         'name': 'The Body'
     },{
-        'group': groupB,
+        'deck': groupB,
         'name': 'Bed and Bath'
-    },
+    },{
+        'name': 'Animals',
+        'deck': animals
+    }
 ]
 
 export default list;
