@@ -28,6 +28,7 @@
 
             return newArr;
         }
+
         function setupPage(card) {
             // Clear visual
             visualCtn.innerText = '';
@@ -44,7 +45,12 @@
             } else if (card.kana.length > 2) {                
                 visualCtn.style.fontSize = '8em';
             }
+
+
             visualCtn.innerText = card.kanji;
+            if(card.kanji == '') {
+                visualCtn.innerText = card.visual;
+            }
 
             // Create hint buttons
             for(let char of card.kana) {
@@ -104,4 +110,5 @@
                 deckList.appendChild(deckBtn);
             });            
         })
+    
         answerFrm.addEventListener('submit', handleSubmit)
