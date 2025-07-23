@@ -1,49 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./template.css" type="text/css"/>
-    <title>Template</title>
-</head>
-<body>
-    <nav>
-        <ul id="deck-list"></ul>
-
-        <ul id="activity-list">
-            <li><button>Activity</button></li>
-            <li><button>Activity</button></li>
-            <li><button>Activity</button></li>
-        </ul>
-    </nav>    
-
-    <div id="content">        
-        <h1></h1>
-        <h2 id="selection-title"></h2>
-        <div id="visual-ctn"></div>
-        <div id="hints-ctn"></div>
-
-        <form id="answer-frm">
-            <div id="answer-icon">
-                <i class="fa-regular fa-circle"></i>
-            </div>
-
-            <input type="text" id="text-box" autocomplete="off" autofocus>
-
-            <button id="submit-answer">
-                <i class="fa-regular fa-circle-right"></i>
-            </button>
-        </form>
-
-        <div id="progress-bar"></div>
-    </div>
-
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/867dfd702e.js" crossorigin="anonymous"></script>
-    
-    <script type="module">
-        // Imports
-        import allDecks from './data/decks.js'
+// Imports
+        import allDecks from '../data/decks.js'
         
         // Page Elements
         const h1 = document.querySelector('h1');
@@ -104,6 +60,8 @@
                 hintsCtn.appendChild(hint);
             }
         }
+
+        // Check entered kana againt answer
         function handleSubmit(e) {
             e.preventDefault();
 
@@ -131,6 +89,8 @@
         }
 
         // Event Listeners
+
+        // Load content into page
         document.addEventListener('DOMContentLoaded', () => {
             h1.innerText = 'Time to practice!';
             h2.innerText = 'がんばってください！！！';
@@ -138,7 +98,6 @@
                 const deckBtn = document.createElement('button');
                 deckBtn.innerText = d.name;
                 deckBtn.addEventListener('click', () => {
-                    // TO DO: shuffle and set deck on button click
                     shuffledDeck = fisherYatesShuffle(d.deck);
                     setupPage(shuffledDeck[index]);
                 })
@@ -146,6 +105,3 @@
             });            
         })
         answerFrm.addEventListener('submit', handleSubmit)
-    </script>
-</body>
-</html>
